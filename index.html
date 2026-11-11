@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fb">
+  <meta name="description" content="StudentHub helps you organize tasks, plan study sessions, write notes and track your progress.">
+  <title>StudentHub — Your study space</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" aria-label="StudentHub home">
+        <span class="brand-mark">S</span><span>student<span class="brand-light">hub</span></span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <button class="nav-link active" data-page="dashboard"><span class="nav-icon">▦</span>Dashboard</button>
+        <button class="nav-link" data-page="tasks"><span class="nav-icon">✓</span>My tasks <span class="nav-count" id="taskNavCount">0</span></button>
+        <button class="nav-link" data-page="planner"><span class="nav-icon">▣</span>Study planner</button>
+        <button class="nav-link" data-page="timer"><span class="nav-icon">◷</span>Focus timer</button>
+        <button class="nav-link" data-page="notes"><span class="nav-icon">▤</span>My notes</button>
+        <button class="nav-link" data-page="analytics"><span class="nav-icon">⌁</span>Analytics</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-tip">
+          <div class="tip-icon">✦</div>
+          <strong>Small steps add up.</strong>
+          <p>Focus on one task at a time. You’re making progress.</p>
+        </div>
+        <button class="nav-link" id="themeToggle"><span class="nav-icon" id="themeIcon">☾</span>Switch theme</button>
+        <div class="profile">
+          <div class="avatar">S</div>
+          <div><strong>My workspace</strong><small>Personal account</small></div>
+          <span class="profile-dots">•••</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu icon-button" id="mobileMenu" aria-label="Open menu">☰</button>
+        <div class="breadcrumb">Workspace <span>/</span> <strong id="pageCrumb">Dashboard</strong></div>
+        <div class="top-actions">
+          <div class="date-chip" id="todayLabel"></div>
+          <button class="icon-button" id="topThemeToggle" aria-label="Toggle theme">☼</button>
+          <div class="avatar small-avatar">S</div>
+        </div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="page active" id="page-dashboard">
+          <div class="welcome-row">
+            <div><p class="eyebrow" id="welcomeDate">YOUR STUDY SPACE</p><h1>Good to see you<span class="heading-dot">.</span></h1><p class="subheading">A little progress each day adds up to big results.</p></div>
+            <button class="primary-button" data-go="tasks"><span>＋</span> Add a task</button>
+          </div>
+          <div class="stat-grid">
+            <article class="stat-card"><div class="stat-top"><span>Tasks completed</span><span class="stat-symbol purple">✓</span></div><strong id="statCompleted">0</strong><small><span class="positive" id="completedHint">Keep it going</span> this week</small></article>
+            <article class="stat-card"><div class="stat-top"><span>Tasks remaining</span><span class="stat-symbol blue">◷</span></div><strong id="statRemaining">0</strong><small>Things still on your list</small></article>
+            <article class="stat-card"><div class="stat-top"><span>Study sessions</span><span class="stat-symbol orange">✦</span></div><strong id="statSessions">0</strong><small>Focus sessions completed</small></article>
+            <article class="stat-card"><div class="stat-top"><span>Completion rate</span><span class="stat-symbol green">↗</span></div><strong id="statRate">0%</strong><small>Based on all your tasks</small></article>
+          </div>
+          <div class="dashboard-grid">
+            <article class="panel task-panel">
+              <div class="panel-heading"><div><h2>Today’s tasks</h2><p>Your priorities for the day</p></div><button class="text-button" data-go="tasks">View all <span>→</span></button></div>
+              <div id="dashboardTasks" class="compact-task-list"></div>
+              <button class="add-inline" data-go="tasks">＋ Add a new task</button>
+            </article>
+            <article class="panel progress-panel">
+              <div class="panel-heading"><div><h2>Your progress</h2><p>All-time task completion</p></div><span class="more-dots">•••</span></div>
+              <div class="progress-content"><div class="donut" id="progressDonut"><div><strong id="donutPercent">0%</strong><small>completed</small></div></div><div class="progress-legend"><div><i class="legend-dot purple-dot"></i><span>Completed</span><strong id="legendDone">0</strong></div><div><i class="legend-dot gray-dot"></i><span>Remaining</span><strong id="legendLeft">0</strong></div></div></div>
+              <div class="progress-foot">Keep showing up. Consistency is your superpower.</div>
+            </article>
+            <article class="panel upcoming-panel">
+              <div class="panel-heading"><div><h2>Upcoming deadlines</h2><p>What’s coming up next</p></div><button class="text-button" data-go="planner">Open planner →</button></div>
+              <div id="upcomingList" class="upcoming-list"></div>
+            </article>
+            <article class="panel focus-panel">
+              <div class="panel-heading"><div><h2>Focus corner</h2><p>Make time for what matters</p></div><span class="focus-star">✦</span></div>
+              <div class="focus-mini"><div class="mini-timer">25:00</div><div><strong>Ready for a focus session?</strong><p>One focused session can make a difference.</p></div></div>
+              <button class="secondary-button full-button" data-go="timer">Start focusing <span>→</span></button>
+            </article>
+          </div>
+        </section>
+
+        <section class="page" id="page-tasks">
+          <div class="page-title-row"><div><p class="eyebrow">STAY ON TRACK</p><h1>My tasks<span class="heading-dot">.</span></h1><p class="subheading">Turn your to-do list into done.</p></div><button class="primary-button" id="openTaskForm">＋ New task</button></div>
+          <div class="toolbar"><div class="search-box"><span>⌕</span><input id="taskSearch" type="search" placeholder="Search tasks..." aria-label="Search tasks"></div><select id="taskFilter" aria-label="Filter tasks"><option value="all">All tasks</option><option value="active">To do</option><option value="completed">Completed</option></select><select id="priorityFilter" aria-label="Filter by priority"><option value="all">All priorities</option><option value="high">High priority</option><option value="medium">Medium priority</option><option value="low">Low priority</option></select></div>
+          <div class="panel task-list-panel"><div class="list-heading"><span id="taskListTitle">All tasks</span><span id="taskCountLabel">0 tasks</span></div><div id="taskList" class="full-task-list"></div></div>
+          <div class="panel form-panel hidden" id="taskFormPanel"><div class="panel-heading"><div><h2 id="taskFormTitle">Create a task</h2><p>Add something you want to get done.</p></div><button class="icon-button close-button" id="closeTaskForm" aria-label="Close form">×</button></div>
+            <form id="taskForm" class="form-grid"><input type="hidden" id="taskId"><label class="wide">Task title<input id="taskTitle" required maxlength="90" placeholder="e.g. Revise Java arrays"></label><label>Due date<input id="taskDue" type="date"></label><label>Priority<select id="taskPriority"><option value="medium">Medium</option><option value="high">High</option><option value="low">Low</option></select></label><label class="wide">Subject / category<input id="taskCategory" maxlength="35" placeholder="e.g. Programming"></label><div class="form-actions wide"><button type="button" class="secondary-button" id="cancelTask">Cancel</button><button type="submit" class="primary-button">Save task</button></div></form>
+          </div>
+        </section>
+
+        <section class="page" id="page-planner">
+          <div class="page-title-row"><div><p class="eyebrow">PLAN WITH PURPOSE</p><h1>Study planner<span class="heading-dot">.</span></h1><p class="subheading">Keep your deadlines and study plans in one place.</p></div><button class="primary-button" id="openPlanForm">＋ Add deadline</button></div>
+          <div class="planner-layout"><article class="panel"><div class="panel-heading"><div><h2>Upcoming deadlines</h2><p>Your next important dates</p></div></div><div id="plannerDeadlines" class="deadline-list"></div></article>
+          <article class="panel form-panel"><div class="panel-heading"><div><h2>Add a study plan</h2><p>Schedule a subject or deadline.</p></div></div><form id="planForm" class="stack-form"><label>Title<input id="planTitle" required maxlength="90" placeholder="e.g. Maths assignment"></label><label>Date<input id="planDate" type="date" required></label><label>Type<select id="planType"><option value="Study session">Study session</option><option value="Assignment">Assignment</option><option value="Exam">Exam</option><option value="Revision">Revision</option></select></label><button class="primary-button" type="submit">Save to planner</button></form></article></div>
+        </section>
+
+        <section class="page" id="page-timer">
+          <div class="page-title-row"><div><p class="eyebrow">DEEP WORK MODE</p><h1>Focus timer<span class="heading-dot">.</span></h1><p class="subheading">Work in focused sessions, then take a proper break.</p></div></div>
+          <div class="timer-layout"><article class="panel timer-panel"><div class="timer-mode-switch"><button class="mode-button active" data-mode="focus">Focus</button><button class="mode-button" data-mode="short">Short break</button><button class="mode-button" data-mode="long">Long break</button></div><div class="timer-ring" id="timerRing"><div><strong id="timerDisplay">25:00</strong><span id="timerCaption">TIME TO FOCUS</span></div></div><div class="timer-controls"><button class="primary-button timer-start" id="timerStart">Start focus</button><button class="secondary-button" id="timerReset">Reset</button></div><div class="session-note"><span>✦</span> Tip: silence distractions and focus on one thing.</div></article>
+          <aside class="panel timer-side"><h2>Today’s focus</h2><p class="muted">Your completed sessions</p><div class="session-count"><strong id="todaySessions">0</strong><span>sessions</span></div><div class="session-bar"><i id="sessionBarFill"></i></div><small id="sessionGoalText">0 of 4 sessions completed</small><div class="divider"></div><h3>How it works</h3><ol class="how-list"><li><b>01</b><span>Choose a task to focus on.</span></li><li><b>02</b><span>Work until the timer ends.</span></li><li><b>03</b><span>Take a break and recharge.</span></li></ol></aside></div>
+        </section>
+
+        <section class="page" id="page-notes">
+          <div class="page-title-row"><div><p class="eyebrow">SAVE YOUR IDEAS</p><h1>My notes<span class="heading-dot">.</span></h1><p class="subheading">A quiet place for everything you want to remember.</p></div><button class="primary-button" id="newNoteButton">＋ New note</button></div>
+          <div class="toolbar"><div class="search-box"><span>⌕</span><input id="noteSearch" type="search" placeholder="Search your notes..." aria-label="Search notes"></div><span class="muted" id="noteCount"></span></div>
+          <div class="notes-layout"><div id="notesGrid" class="notes-grid"></div><article class="panel note-editor hidden" id="noteEditor"><div class="panel-heading"><div><h2 id="noteEditorHeading">New note</h2><p>Your notes are saved in this browser.</p></div><button class="icon-button" id="closeNoteEditor" aria-label="Close editor">×</button></div><form id="noteForm" class="stack-form"><input type="hidden" id="noteId"><label>Title<input id="noteTitle" required maxlength="90" placeholder="Note title"></label><label>Content<textarea id="noteContent" rows="7" placeholder="Start writing..." required></textarea></label><div class="form-actions"><button type="button" class="secondary-button" id="deleteNoteButton">Delete</button><button class="primary-button" type="submit">Save note</button></div></form></article></div>
+        </section>
+
+        <section class="page" id="page-analytics">
+          <div class="page-title-row"><div><p class="eyebrow">YOUR MOMENTUM</p><h1>Analytics<span class="heading-dot">.</span></h1><p class="subheading">See the progress you’ve been making.</p></div></div>
+          <div class="stat-grid analytics-stats"><article class="stat-card"><div class="stat-top"><span>Total tasks</span><span class="stat-symbol purple">▦</span></div><strong id="analyticsTotal">0</strong><small>Across your workspace</small></article><article class="stat-card"><div class="stat-top"><span>Completed</span><span class="stat-symbol green">✓</span></div><strong id="analyticsDone">0</strong><small>Tasks checked off</small></article><article class="stat-card"><div class="stat-top"><span>Focus sessions</span><span class="stat-symbol orange">◷</span></div><strong id="analyticsSessions">0</strong><small>Sessions completed</small></article></div>
+          <div class="analytics-layout"><article class="panel"><div class="panel-heading"><div><h2>Task overview</h2><p>Completed vs. remaining tasks</p></div></div><div class="bar-chart" id="taskChart"><div class="chart-bar-group"><div class="chart-bars"><i id="chartCompleted" class="chart-completed"></i><i id="chartRemaining" class="chart-remaining"></i></div><div class="chart-labels"><span>Completed</span><span>Remaining</span></div></div></div></article><article class="panel"><div class="panel-heading"><div><h2>Study consistency</h2><p>Sessions completed today</p></div></div><div class="consistency-number"><strong id="analyticsTodaySessions">0</strong><span>focus sessions</span></div><p class="muted">Try to build a small, repeatable study habit. Your progress is saved on this device.</p></article></div>
+        </section>
+        <footer class="footer"><span>© <span id="year"></span> StudentHub</span><span>Made for focused learning <b>✦</b></span></footer>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/app.js"></script>
+  <script src="js/tasks.js"></script>
+  <script src="js/planner.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/notes.js"></script>
+  <script src="js/analytics.js"></script>
+</body>
+</html>
